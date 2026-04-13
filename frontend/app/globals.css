@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/* =========================================
+   PAYPR DESIGN SYSTEM — Stitch Project 606414917732111026
+   ========================================= */
+
+@theme {
+  --color-primary: #004cca;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #0062ff;
+  --color-on-primary-container: #f3f3ff;
+  --color-primary-fixed: #dbe1ff;
+  --color-primary-fixed-dim: #b4c5ff;
+  --color-secondary-container: #fdd404;
+  --color-on-secondary-container: #6f5c00;
+  --color-secondary-fixed-dim: #e9c400;
+  --color-tertiary: #9e3100;
+  --color-tertiary-container: #c84000;
+  --color-surface: #f9f9f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
+  --color-on-surface: #1a1c1c;
+  --color-on-surface-variant: #424656;
+  --color-outline: #737687;
+  --color-outline-variant: #c2c6d9;
+  --color-error: #ba1a1a;
+  --font-headline: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* ========== Base Reset ========== */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f9f9f9;
+  color: #1a1c1c;
+  min-height: 100vh;
+}
+
+/* ========== Material Symbols ========== */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+  line-height: 1;
+  user-select: none;
+  display: inline-block;
+}
+
+/* ========== Scrollbar ========== */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #c2c6d9; border-radius: 4px; }
+
+/* ========== PAYPR NAV — Always sticky, single row ========== */
+.paypr-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(194, 198, 217, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  min-height: 64px;
+  flex-shrink: 0;
+}
+
+/* ========== Split layout — Explore + Agent Console ========== */
+.split-layout {
+  display: flex;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+.split-sidebar {
+  width: 320px;
+  min-width: 320px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  background: #f3f3f3;
+  border-right: 1px solid rgba(194, 198, 217, 0.3);
+}
+
+.split-main {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+
+/* ========== Glassmorphism ========== */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* ========== Terminal panel ========== */
+.terminal-panel {
+  background: #1a1c1c;
+  color: #c8ccd8;
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+}
+
+/* ========== Animations ========== */
+@keyframes paypr-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-paypr-spin { animation: paypr-spin 0.8s linear infinite; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink { animation: blink 1s step-end infinite; }

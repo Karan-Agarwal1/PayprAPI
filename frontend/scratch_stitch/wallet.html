@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#e9c400",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-secondary-container": "#6f5c00",
+                    "on-secondary-fixed": "#221b00",
+                    "secondary-fixed": "#ffe171",
+                    "on-surface": "#1a1c1c",
+                    "tertiary-fixed-dim": "#ffb59c",
+                    "surface-bright": "#f9f9f9",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dadada",
+                    "primary-fixed": "#dbe1ff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#fdd404",
+                    "on-background": "#1a1c1c",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f3f3f3",
+                    "on-secondary-fixed-variant": "#554600",
+                    "on-primary-fixed": "#00174b",
+                    "outline-variant": "#c2c6d9",
+                    "outline": "#737687",
+                    "surface-tint": "#0053da",
+                    "on-primary-container": "#f3f3ff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#390c00",
+                    "surface-container": "#eeeeee",
+                    "primary-container": "#0062ff",
+                    "surface-container-high": "#e8e8e8",
+                    "on-tertiary-container": "#fff1ed",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e2e2e2",
+                    "primary": "#004cca",
+                    "surface-container-highest": "#e2e2e2",
+                    "inverse-on-surface": "#f0f1f1",
+                    "inverse-surface": "#2f3131",
+                    "inverse-primary": "#b4c5ff",
+                    "tertiary-container": "#c84000",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-tertiary-fixed-variant": "#832700",
+                    "secondary": "#705d00",
+                    "on-surface-variant": "#424656",
+                    "surface": "#f9f9f9",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9f9",
+                    "tertiary": "#9e3100",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            box-shadow: 0 20px 40px rgba(26, 28, 28, 0.05);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .text-locked {
+            letter-spacing: -0.04em;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-container">
+<!-- Content Canvas (Simulated Background Page) -->
+<main aria-hidden="true" class="min-h-screen flex flex-col items-center justify-center p-8 opacity-40 blur-sm pointer-events-none">
+<div class="grid grid-cols-4 gap-6 w-full max-w-7xl h-[600px]">
+<div class="col-span-2 row-span-2 bg-surface-container-lowest rounded-xl editorial-shadow overflow-hidden p-8">
+<div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div class="h-8 w-48 bg-surface-container rounded-full mb-4"></div>
+<div class="h-4 w-full bg-surface-container rounded-full mb-2"></div>
+<div class="h-4 w-3/4 bg-surface-container rounded-full"></div>
+</div>
+<div class="col-span-2 bg-surface-container-lowest rounded-xl editorial-shadow p-8 flex flex-col justify-end">
+<div class="h-24 w-full bg-surface-container rounded-lg"></div>
+</div>
+<div class="col-span-1 bg-surface-container-lowest rounded-xl editorial-shadow p-8">
+<div class="h-4 w-full bg-surface-container rounded-full mb-2"></div>
+</div>
+<div class="col-span-1 bg-surface-container-lowest rounded-xl editorial-shadow p-8">
+<div class="h-4 w-full bg-surface-container rounded-full mb-2"></div>
+</div>
+</div>
+</main>
+<!-- Wallet Connect Overlay -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-white/60 backdrop-blur-sm p-4">
+<div class="w-full max-w-[500px] bg-surface-container-lowest editorial-shadow rounded-xl overflow-hidden flex flex-col">
+<!-- Header Section -->
+<div class="px-10 pt-12 pb-8 flex flex-col items-center text-center">
+<div class="w-16 h-16 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center mb-8">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<h1 class="font-headline text-4xl font-bold text-on-surface text-locked mb-3">Connect Wallet</h1>
+<p class="text-on-surface-variant text-sm font-medium lowercase tracking-wide">Enter your 25-word testnet passphrase</p>
+</div>
+<!-- Input Section -->
+<div class="px-10 pb-8">
+<div class="relative group">
+<textarea class="w-full h-40 p-6 bg-surface-container border-transparent focus:border-primary focus:ring-0 rounded-xl font-body text-sm leading-relaxed text-on-surface transition-all placeholder:text-outline/50 resize-none" id="passphrase" placeholder="apple banana cherry dog elephant fish grape house ice jacket kangaroo lemon mountain nature ocean paper queen river stone tree umbrella violin water x-ray yellow zebra..."></textarea>
+<!-- Decorative Element to break the box -->
+<div class="absolute -top-3 -right-3 w-12 h-12 bg-secondary-container rounded-xl flex items-center justify-center editorial-shadow pointer-events-none">
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'wght' 600;">vpn_key</span>
+</div>
+</div>
+<div class="mt-4 flex items-center gap-2 px-2">
+<span class="material-symbols-outlined text-outline text-lg">verified_user</span>
+<p class="text-[0.65rem] text-outline font-label uppercase tracking-widest leading-none">Secured by AES-256 hardware encryption standards</p>
+</div>
+</div>
+<!-- Actions Section -->
+<div class="px-10 pb-12 flex flex-col gap-3">
+<button class="w-full h-14 bg-primary text-on-primary font-headline font-bold text-lg rounded-full flex items-center justify-center gap-2 hover:bg-primary-container transition-all active:scale-95">
+                    Secure Connect
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="w-full h-14 bg-transparent text-on-surface-variant font-label text-sm font-semibold rounded-full flex items-center justify-center hover:bg-surface-container transition-all active:scale-95">
+                    Guest Mode
+                </button>
+</div>
+<!-- Footer Branding -->
+<div class="bg-surface-container py-4 px-10 flex justify-between items-center">
+<span class="font-headline text-xs font-extrabold tracking-tighter text-on-surface-variant opacity-50">PayprAPI</span>
+<div class="flex gap-4">
+<span class="font-label text-[10px] text-on-surface-variant/40 uppercase tracking-widest">v2.4.0-beta</span>
+</div>
+</div>
+</div>
+<!-- Decorative Floating Elements to enhance "Editorial Brutalism" -->
+<div class="absolute top-12 left-12 hidden lg:block opacity-20 pointer-events-none">
+<h2 class="font-headline text-[120px] font-bold text-on-surface leading-none -ml-4">SAFE</h2>
+<h2 class="font-headline text-[120px] font-bold text-on-surface leading-none">ENTRY</h2>
+</div>
+<div class="absolute bottom-12 right-12 hidden lg:block text-right opacity-20 pointer-events-none">
+<p class="font-label text-sm uppercase tracking-widest font-bold">Network Status</p>
+<p class="font-headline text-4xl font-bold text-primary">ALGORAND TESTNET</p>
+</div>
+</div>
+<!-- Hidden visual context for LLM background generation -->
+<div class="hidden">
+<img data-alt="minimalist architectural visualization of a vaulted concrete hall with clean shadows and soft ambient natural light coming from above" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIDt8NcvorooGHtD2iYtYFYNnlJArvbiKjshSiYtSjll_ey3tHT365fyYrSndowgOL0w1CLvV8Yo9D9wFtQUMCTmLKOXlg1ujKa7NCTx6VZ7Mao9jIaxwAaR4SC1iQy87sal9VgpPODZ1VzXDAhRUzZCWPSyfIVrh2Ghz_gMfJXG_aY0Jk8TBUoDxoN6vQGjjMhYZPIILtAv_-1ktnINTSRcd3hdNDPVB5uePy-8CZS3Ce2oEdYle9mYgflRtP6EdAEiljU_n07s8"/>
+</div>
+</body></html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Provider Dashboard | PayprAPI</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#e9c400",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-secondary-container": "#6f5c00",
+                    "on-secondary-fixed": "#221b00",
+                    "secondary-fixed": "#ffe171",
+                    "on-surface": "#1a1c1c",
+                    "tertiary-fixed-dim": "#ffb59c",
+                    "surface-bright": "#f9f9f9",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#dadada",
+                    "primary-fixed": "#dbe1ff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-container": "#fdd404",
+                    "on-background": "#1a1c1c",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f3f3f3",
+                    "on-secondary-fixed-variant": "#554600",
+                    "on-primary-fixed": "#00174b",
+                    "outline-variant": "#c2c6d9",
+                    "outline": "#737687",
+                    "surface-tint": "#0053da",
+                    "on-primary-container": "#f3f3ff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed": "#390c00",
+                    "surface-container": "#eeeeee",
+                    "primary-container": "#0062ff",
+                    "surface-container-high": "#e8e8e8",
+                    "on-tertiary-container": "#fff1ed",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e2e2e2",
+                    "primary": "#004cca",
+                    "surface-container-highest": "#e2e2e2",
+                    "inverse-on-surface": "#f0f1f1",
+                    "inverse-surface": "#2f3131",
+                    "inverse-primary": "#b4c5ff",
+                    "tertiary-container": "#c84000",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-tertiary-fixed-variant": "#832700",
+                    "secondary": "#705d00",
+                    "on-surface-variant": "#424656",
+                    "surface": "#f9f9f9",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9f9",
+                    "tertiary": "#9e3100",
+                    "on-primary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar Component -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm flex justify-between items-center px-8 h-20 max-w-full mx-auto font-['Space_Grotesk'] tracking-tight">
+<div class="text-xl font-bold tracking-tighter text-slate-900 dark:text-slate-50">PayprAPI</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-1 rounded-lg" href="#">Explore APIs</a>
+<a class="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-600 px-3 py-1" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-1 rounded-lg" href="#">Analytics</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors px-3 py-1 rounded-lg" href="#">Agent Console</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 opacity-80 hover:opacity-100 transition-opacity">Logout</button>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-bold scale-95 active:scale-90 transition-transform">Try Free →</button>
+</div>
+</nav>
+<div class="flex pt-20 min-h-screen">
+<!-- Sidebar: Providers List -->
+<aside class="w-[260px] fixed h-[calc(100vh-80px)] bg-surface-container-low overflow-y-auto no-scrollbar py-8 px-4 flex flex-col gap-6">
+<div>
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant opacity-60 ml-4 mb-4 block">Your Organizations</label>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-4 py-3 bg-surface-container-lowest rounded-xl shadow-sm border-l-4 border-primary">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+</div>
+<div>
+<p class="text-sm font-bold leading-tight">AI Labs Inc.</p>
+<p class="text-[11px] text-on-surface-variant">Owner</p>
+</div>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high rounded-xl transition-colors cursor-pointer group">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center group-hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="cloud_done">cloud_done</span>
+</div>
+<div>
+<p class="text-sm font-medium leading-tight">QuantNode</p>
+<p class="text-[11px] text-on-surface-variant">Admin</p>
+</div>
+</div>
+<div class="flex items-center gap-3 px-4 py-3 hover:bg-surface-container-high rounded-xl transition-colors cursor-pointer group">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center group-hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="neurology">neurology</span>
+</div>
+<div>
+<p class="text-sm font-medium leading-tight">Neural Nexus</p>
+<p class="text-[11px] text-on-surface-variant">Contributor</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<button class="w-full flex items-center justify-center gap-2 py-3 px-4 border border-dashed border-outline-variant hover:border-primary hover:text-primary rounded-xl text-sm font-medium transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add_business">add_business</span>
+                    New Provider
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[260px] bg-surface min-h-screen">
+<!-- Page Header -->
+<header class="px-10 py-8 bg-surface-container-lowest flex justify-between items-end">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 bg-secondary-container text-[10px] font-bold rounded-full text-on-secondary-container tracking-wider">VERIFIED PROVIDER</span>
+</div>
+<h1 class="text-4xl font-bold tracking-tighter text-on-surface leading-none">AI Labs Inc.</h1>
+<div class="flex items-center gap-4 mt-4">
+<div class="flex items-center gap-2 text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-full text-xs font-mono">
+<span class="material-symbols-outlined text-sm" data-icon="account_balance_wallet">account_balance_wallet</span>
+                            ALGO: 4,829.12
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-full text-xs font-mono">
+<span class="material-symbols-outlined text-sm" data-icon="token">token</span>
+                            ID: 0x92f...8a1
+                        </div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-2.5 bg-surface-container-high hover:bg-surface-variant text-on-surface text-sm font-bold rounded-full transition-all">Edit Profile</button>
+<button class="px-6 py-2.5 bg-primary text-on-primary text-sm font-bold rounded-full shadow-lg shadow-primary/20 transition-all">+ Publish API</button>
+</div>
+</header>
+<!-- Sticky Tab Bar -->
+<div class="sticky top-20 z-40 bg-surface-container-lowest px-10 border-b border-outline-variant/10">
+<div class="flex gap-10">
+<button class="py-4 text-sm font-bold border-b-2 border-primary text-primary">Overview</button>
+<button class="py-4 text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors">My APIs</button>
+<button class="py-4 text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors">Publish API</button>
+<button class="py-4 text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors">Register Form</button>
+<button class="py-4 text-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors">Settings</button>
+</div>
+</div>
+<!-- Dashboard Content -->
+<div class="p-10 max-w-7xl mx-auto space-y-12">
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="col-span-2 p-8 bg-surface-container-lowest rounded-3xl shadow-[0_20px_40px_rgba(26,28,28,0.05)] flex flex-col justify-between group overflow-hidden relative">
+<div class="relative z-10">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Monthly Revenue</p>
+<h2 class="text-5xl font-bold tracking-tighter">$12,482.00</h2>
+<p class="mt-4 text-sm text-primary flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                                +24% from last month
+                            </p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" data-icon="payments">payments</span>
+</div>
+</div>
+<div class="p-8 bg-surface-container-lowest rounded-3xl shadow-[0_20px_40px_rgba(26,28,28,0.05)]">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Active Calls</p>
+<h2 class="text-4xl font-bold tracking-tighter">842k</h2>
+<div class="mt-6 w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+<p class="mt-2 text-[10px] text-on-surface-variant font-medium">67% of quota used</p>
+</div>
+<div class="p-8 bg-surface-container-lowest rounded-3xl shadow-[0_20px_40px_rgba(26,28,28,0.05)]">
+<p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Avg Latency</p>
+<h2 class="text-4xl font-bold tracking-tighter">142ms</h2>
+<div class="mt-4 flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-green-500"></div>
+<span class="text-[10px] font-bold text-green-600">OPTIMAL</span>
+</div>
+</div>
+</section>
+<!-- Transactions Table -->
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="text-2xl font-bold tracking-tight">Recent Activity</h3>
+<p class="text-sm text-on-surface-variant">Real-time settlement data across all endpoints.</p>
+</div>
+<button class="text-sm font-bold text-primary flex items-center gap-1">
+                            Export CSV
+                            <span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+</button>
+</div>
+<div class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0_20px_40px_rgba(26,28,28,0.05)]">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Endpoint</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Consumer ID</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Status</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Method</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right">Settled</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/5 rounded-lg">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="api">api</span>
+</div>
+<span class="text-sm font-bold">gpt-4o-vision-v1</span>
+</div>
+</td>
+<td class="px-8 py-5 font-mono text-xs text-on-surface-variant">usr_9281a...331</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-[10px] font-bold">SUCCESS</span>
+</td>
+<td class="px-8 py-5 font-mono text-xs">POST</td>
+<td class="px-8 py-5 text-right font-bold text-sm">0.024 ALGO</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/5 rounded-lg">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="psychology">psychology</span>
+</div>
+<span class="text-sm font-bold">embedding-v3-large</span>
+</div>
+</td>
+<td class="px-8 py-5 font-mono text-xs text-on-surface-variant">usr_1211p...009</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-[10px] font-bold">SUCCESS</span>
+</td>
+<td class="px-8 py-5 font-mono text-xs">POST</td>
+<td class="px-8 py-5 text-right font-bold text-sm">0.008 ALGO</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/5 rounded-lg">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="image_search">image_search</span>
+</div>
+<span class="text-sm font-bold">dalle-3-hq</span>
+</div>
+</td>
+<td class="px-8 py-5 font-mono text-xs text-on-surface-variant">usr_ff280...cc2</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold">PENDING</span>
+</td>
+<td class="px-8 py-5 font-mono text-xs">POST</td>
+<td class="px-8 py-5 text-right font-bold text-sm">0.120 ALGO</td>
+</tr>
+</tbody>
+</table>
+<div class="px-8 py-6 flex justify-center bg-surface-container-low/50">
+<button class="text-xs font-bold text-on-surface-variant hover:text-primary tracking-widest uppercase">View All Transactions</button>
+</div>
+</div>
+</section>
+<!-- Forms / Configuration Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+<div class="space-y-6">
+<h3 class="text-2xl font-bold tracking-tight">API Publisher</h3>
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-[0_20px_40px_rgba(26,28,28,0.05)] border border-outline-variant/10">
+<form class="space-y-6">
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase ml-1">API Name</label>
+<input class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all" placeholder="e.g. Llama-3-70B" type="text"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase ml-1">Category</label>
+<select class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all appearance-none">
+<option>Text Generation</option>
+<option>Image Gen</option>
+<option>Finance Data</option>
+</select>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase ml-1">Endpoint URL</label>
+<input class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all" placeholder="https://api.ailabs.com/v1" type="url"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase ml-1">Pricing (ALGO/1k tokens)</label>
+<input class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all" placeholder="0.005" step="0.001" type="number"/>
+</div>
+<div class="space-y-1.5">
+<label class="text-[11px] font-bold text-on-surface-variant uppercase ml-1">Rate Limit (req/min)</label>
+<input class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary transition-all" placeholder="60" type="number"/>
+</div>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-[1.01] active:scale-[0.98] transition-all" type="submit">Publish to Marketplace</button>
+</form>
+</div>
+</div>
+<div class="space-y-6">
+<h3 class="text-2xl font-bold tracking-tight">On-Chain Registration</h3>
+<div class="bg-primary p-8 rounded-3xl shadow-[0_20px_40px_rgba(26,28,28,0.1)] relative overflow-hidden">
+<!-- Visual Decoration -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+<p class="text-primary-fixed text-sm mb-8 leading-relaxed opacity-90">
+                                Submit your organization identity to the Algorand blockchain to enable trustless payments and agent discovery.
+                            </p>
+<form class="space-y-4">
+<div class="bg-white/10 p-4 rounded-2xl">
+<label class="text-[10px] font-bold text-primary-fixed uppercase mb-2 block">Organization DID</label>
+<p class="text-xs font-mono text-white break-all">did:paypr:algo:4482-9901-2281-x992</p>
+</div>
+<div class="bg-white/10 p-4 rounded-2xl">
+<label class="text-[10px] font-bold text-primary-fixed uppercase mb-2 block">Protocol Stake</label>
+<div class="flex justify-between items-center">
+<span class="text-white font-bold">500 ALGO</span>
+<span class="px-2 py-1 bg-white/20 rounded text-[9px] text-white font-bold tracking-wider">LOCKED</span>
+</div>
+</div>
+<div class="flex gap-3 mt-8">
+<button class="flex-1 py-3 bg-white text-primary font-bold rounded-xl text-sm hover:bg-primary-fixed transition-colors">Update Registry</button>
+<button class="w-12 h-12 flex items-center justify-center border border-white/30 rounded-xl text-white hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined" data-icon="qr_code">qr_code</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Component -->
+<footer class="w-full py-12 px-8 bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row justify-between items-center gap-4 font-['Space_Grotesk'] text-sm lowercase mt-20">
+<div class="font-bold text-slate-900 dark:text-slate-50 opacity-80 hover:opacity-100 transition-opacity">PayprAPI</div>
+<div class="text-slate-500 dark:text-slate-400 text-center">PayprAPI — Powered by Algorand Blockchain &amp; X402 Protocol | Built for the agentic AI economy</div>
+<div class="flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Documentation</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Privacy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Terms</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#">Support</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

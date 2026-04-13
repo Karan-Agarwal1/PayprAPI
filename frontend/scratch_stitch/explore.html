@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "secondary-fixed-dim": "#e9c400",
+                  "primary-fixed-dim": "#b4c5ff",
+                  "on-primary-fixed-variant": "#003ea8",
+                  "on-secondary-container": "#6f5c00",
+                  "on-secondary-fixed": "#221b00",
+                  "secondary-fixed": "#ffe171",
+                  "on-surface": "#1a1c1c",
+                  "tertiary-fixed-dim": "#ffb59c",
+                  "surface-bright": "#f9f9f9",
+                  "on-error-container": "#93000a",
+                  "surface-dim": "#dadada",
+                  "primary-fixed": "#dbe1ff",
+                  "on-tertiary": "#ffffff",
+                  "secondary-container": "#fdd404",
+                  "on-background": "#1a1c1c",
+                  "error-container": "#ffdad6",
+                  "error": "#ba1a1a",
+                  "surface-container-low": "#f3f3f3",
+                  "on-secondary-fixed-variant": "#554600",
+                  "on-primary-fixed": "#00174b",
+                  "outline-variant": "#c2c6d9",
+                  "outline": "#737687",
+                  "surface-tint": "#0053da",
+                  "on-primary-container": "#f3f3ff",
+                  "on-secondary": "#ffffff",
+                  "on-tertiary-fixed": "#390c00",
+                  "surface-container": "#eeeeee",
+                  "primary-container": "#0062ff",
+                  "surface-container-high": "#e8e8e8",
+                  "on-tertiary-container": "#fff1ed",
+                  "on-error": "#ffffff",
+                  "surface-variant": "#e2e2e2",
+                  "primary": "#004cca",
+                  "surface-container-highest": "#e2e2e2",
+                  "inverse-on-surface": "#f0f1f1",
+                  "inverse-surface": "#2f3131",
+                  "inverse-primary": "#b4c5ff",
+                  "tertiary-container": "#c84000",
+                  "tertiary-fixed": "#ffdbcf",
+                  "on-tertiary-fixed-variant": "#832700",
+                  "secondary": "#705d00",
+                  "on-surface-variant": "#424656",
+                  "surface": "#f9f9f9",
+                  "surface-container-lowest": "#ffffff",
+                  "background": "#f9f9f9",
+                  "tertiary": "#9e3100",
+                  "on-primary": "#ffffff"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "fontFamily": {
+                  "headline": ["Space Grotesk"],
+                  "body": ["Inter"],
+                  "label": ["Inter"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .tonal-shift { transition: background-color 0.3s ease; }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-hidden">
+<!-- TopNavBar Component -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md shadow-sm h-20 flex justify-between items-center px-8 max-w-full mx-auto">
+<div class="text-xl font-bold tracking-tighter text-slate-900 font-headline">PayprAPI</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-blue-600 font-bold border-b-2 border-blue-600 font-headline tracking-tight py-2" href="#">Explore APIs</a>
+<a class="text-slate-600 hover:text-slate-900 transition-colors font-headline tracking-tight py-2" href="#">Dashboard</a>
+<a class="text-slate-600 hover:text-slate-900 transition-colors font-headline tracking-tight py-2" href="#">Analytics</a>
+<a class="text-slate-600 hover:text-slate-900 transition-colors font-headline tracking-tight py-2" href="#">Agent Console</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-600 hover:text-slate-900 transition-colors px-4 py-2 text-sm font-medium">Logout</button>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-bold transition-transform scale-95 active:scale-90">Try Free →</button>
+</div>
+</nav>
+<main class="flex h-screen pt-20">
+<!-- Left Sidebar: AI Marketplace -->
+<aside class="w-[380px] flex-shrink-0 bg-surface-container-low border-r border-outline-variant/20 flex flex-col">
+<div class="p-8">
+<h1 class="text-4xl font-headline font-bold tracking-tighter mb-6">AI Marketplace</h1>
+<div class="relative mb-6">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border-none rounded-xl focus:ring-2 focus:ring-primary text-sm shadow-sm" placeholder="Search machine endpoints..." type="text"/>
+</div>
+<div class="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+<span class="px-4 py-1.5 bg-primary text-on-primary rounded-full text-xs font-bold whitespace-nowrap cursor-pointer">All</span>
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-medium whitespace-nowrap cursor-pointer hover:bg-surface-container-high">Language</span>
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-medium whitespace-nowrap cursor-pointer hover:bg-surface-container-high">Vision</span>
+<span class="px-4 py-1.5 bg-surface-container-highest text-on-surface-variant rounded-full text-xs font-medium whitespace-nowrap cursor-pointer hover:bg-surface-container-high">Logic</span>
+</div>
+<div class="space-y-4 overflow-y-auto max-h-[calc(100vh-400px)] custom-scrollbar">
+<!-- API Card 1 (Active) -->
+<div class="p-4 bg-surface-container-lowest rounded-xl border-2 border-primary shadow-lg cursor-pointer transition-transform hover:scale-[1.02]">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="text-[10px] font-bold bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">0.02 ALGO/req</span>
+</div>
+<h3 class="font-bold text-lg leading-tight">GPT-4o Reasoning</h3>
+<p class="text-xs text-on-surface-variant mt-1 line-clamp-2">High-fidelity reasoning for complex logic chains.</p>
+</div>
+<!-- API Card 2 -->
+<div class="p-4 bg-surface-container-lowest rounded-xl border border-transparent hover:border-outline-variant/30 shadow-sm cursor-pointer transition-all hover:bg-white">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">image_search</span>
+<span class="text-[10px] font-bold bg-surface-container-highest text-on-surface-variant px-2 py-0.5 rounded">0.05 ALGO/req</span>
+</div>
+<h3 class="font-bold text-lg leading-tight">Vision-Agent Pro</h3>
+<p class="text-xs text-on-surface-variant mt-1">Spatial analysis and object detection APIs.</p>
+</div>
+<!-- API Card 3 -->
+<div class="p-4 bg-surface-container-lowest rounded-xl border border-transparent hover:border-outline-variant/30 shadow-sm cursor-pointer transition-all hover:bg-white">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">translate</span>
+<span class="text-[10px] font-bold bg-surface-container-highest text-on-surface-variant px-2 py-0.5 rounded">0.001 ALGO/req</span>
+</div>
+<h3 class="font-bold text-lg leading-tight">Neural Translator</h3>
+<p class="text-xs text-on-surface-variant mt-1">Instant translation across 140+ languages.</p>
+</div>
+<!-- API Card 4 -->
+<div class="p-4 bg-surface-container-lowest rounded-xl border border-transparent hover:border-outline-variant/30 shadow-sm cursor-pointer transition-all hover:bg-white">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">code</span>
+<span class="text-[10px] font-bold bg-surface-container-highest text-on-surface-variant px-2 py-0.5 rounded">0.01 ALGO/req</span>
+</div>
+<h3 class="font-bold text-lg leading-tight">CodeX Refactor</h3>
+<p class="text-xs text-on-surface-variant mt-1">Automated code optimization and security audits.</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Right Panel: Selection Details -->
+<section class="flex-1 overflow-y-auto bg-surface p-12 custom-scrollbar">
+<div class="max-w-4xl mx-auto space-y-12">
+<!-- API Header Card -->
+<div class="glass-card p-10 rounded-3xl shadow-[0_20px_40px_rgba(26,28,28,0.05)] flex items-center gap-8 relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl"></div>
+<div class="w-24 h-24 bg-primary rounded-2xl flex items-center justify-center text-on-primary shadow-xl rotate-3">
+<span class="material-symbols-outlined text-5xl" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="label-md bg-primary-container/10 text-primary px-3 py-1 rounded-full font-bold uppercase tracking-widest text-[10px]">Verified Endpoint</span>
+<span class="label-md text-on-surface-variant text-[10px]">Lat: 24ms</span>
+</div>
+<h2 class="text-5xl font-headline font-extrabold tracking-tighter mb-2">GPT-4o Reasoning</h2>
+<code class="text-sm font-mono text-primary bg-primary/5 px-3 py-1 rounded">POST /v1/agent/reasoning</code>
+</div>
+</div>
+<!-- Bento Grid Layout for Details -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Request Input Form -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-lowest p-8 rounded-3xl shadow-sm space-y-6">
+<h4 class="text-xl font-headline font-bold">Request Input</h4>
+<div class="space-y-4">
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-2">Prompt context</label>
+<textarea class="w-full bg-surface-container border-none rounded-xl focus:ring-2 focus:ring-primary p-4 text-sm resize-none" placeholder="Enter your reasoning query here..." rows="4"></textarea>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-2">Temperature</label>
+<input class="w-full accent-primary" type="range"/>
+</div>
+<div>
+<label class="block text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mb-2">Max Tokens</label>
+<input class="w-full bg-surface-container border-none rounded-xl focus:ring-2 focus:ring-primary text-sm px-4 py-2" type="number" value="2048"/>
+</div>
+</div>
+</div>
+</div>
+<!-- HTTP 402 Terminal Card -->
+<div class="col-span-12 lg:col-span-5 bg-[#1a1c1c] p-8 rounded-3xl shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-secondary-container"></div>
+<div class="flex justify-between items-center mb-6">
+<span class="text-secondary-fixed-dim font-mono text-sm">HTTP 402: Payment Required</span>
+<div class="flex gap-1.5">
+<div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+<div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+</div>
+</div>
+<div class="font-mono text-xs text-surface-variant space-y-4 mb-8">
+<p class="text-secondary-fixed-dim/80">// Protocol: X402 Agentic Transfer</p>
+<p><span class="text-primary-fixed-dim">Invoice:</span> tx_82937x_algo</p>
+<p><span class="text-primary-fixed-dim">Amount:</span> 0.020000 ALGO</p>
+<p><span class="text-primary-fixed-dim">Receiver:</span> PayprAPI_Escrow_v2</p>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-xl">account_balance_wallet</span>
+              Pay with ALGO
+            </button>
+</div>
+<!-- Payment Verified Response Card -->
+<div class="col-span-12 bg-white border-2 border-green-500/30 p-8 rounded-3xl shadow-sm relative overflow-hidden">
+<div class="absolute right-0 top-0 p-4">
+<span class="bg-green-100 text-green-700 text-[10px] font-bold px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">check_circle</span>
+                 PAYMENT_VERIFIED
+               </span>
+</div>
+<h4 class="text-xl font-headline font-bold mb-6">JSON Response</h4>
+<div class="bg-surface-container-low rounded-2xl p-6 font-mono text-xs overflow-x-auto text-on-surface-variant">
+<pre class="whitespace-pre">{
+  "status": "success",
+  "data": {
+    "agent_id": "gpt-4o-reasoning-01",
+    "tx_id": "ALGO_CONFIRMED_A829...",
+    "output": {
+      "reasoning_chain": [
+        "Analyzing input parameters...",
+        "Identifying logical contradictions...",
+        "Synthesizing optimal solution pathway..."
+      ],
+      "result": "Based on the 402 protocol verify, the agent has executed..."
+    }
+  },
+  "compute_cost": "0.0192 ALGO",
+  "latency": "1.2s"
+}</pre>
+</div>
+</div>
+</div>
+<!-- Footer spacer -->
+<div class="py-12"></div>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="fixed bottom-0 w-full bg-slate-50 z-40 py-6 px-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-outline-variant/10">
+<div class="text-sm font-['Space_Grotesk'] lowercase text-slate-500">
+<span class="font-bold text-slate-900">PayprAPI</span> — Powered by Algorand Blockchain &amp; X402 Protocol | Built for the agentic AI economy
+    </div>
+<div class="flex gap-6">
+<a class="text-slate-500 text-sm font-['Space_Grotesk'] lowercase hover:text-blue-600 transition-opacity opacity-80 hover:opacity-100" href="#">Documentation</a>
+<a class="text-slate-500 text-sm font-['Space_Grotesk'] lowercase hover:text-blue-600 transition-opacity opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="text-slate-500 text-sm font-['Space_Grotesk'] lowercase hover:text-blue-600 transition-opacity opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="text-slate-500 text-sm font-['Space_Grotesk'] lowercase hover:text-blue-600 transition-opacity opacity-80 hover:opacity-100" href="#">Support</a>
+</div>
+</footer>
+</body></html>

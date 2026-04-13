@@ -1,0 +1,23 @@
+{
+  "name": "payprapi-gateway",
+  "version": "1.0.0",
+  "description": "PayprAPI Pay-Per-Use AI API Marketplace — Node.js Gateway",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.102.1",
+    "algosdk": "^3.0.0",
+    "better-sqlite3": "^11.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "http-proxy-middleware": "^3.0.2",
+    "morgan": "^1.10.0",
+    "node-fetch": "^3.3.2",
+    "uuid": "^10.0.0"
+  }
+}
