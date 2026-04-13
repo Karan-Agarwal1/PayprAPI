@@ -378,13 +378,14 @@ export default function ExplorePage() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#737687' }}>Confidence Score</span>
                     <span style={{ fontSize: '0.875rem', color: '#1a1c1c' }}>{out?.score ? (out.score * 100).toFixed(1) : "0.0"}%</span>
-                    <div style={{ background: '#e2e2e2', borderRadius: '9999px', height: '10px', overflow: 'hidden' }}>
-                      <div style={{ width: `${(out.score ?? 0) * 100}%`, height: '100%', borderRadius: '9999px', background: out.label === 'POSITIVE' ? '#4caf50' : out.label === 'NEGATIVE' ? '#ba1a1a' : '#737687', transition: 'width 1s ease' }}></div>
-                    </div>
+                  </div>
+                  <div style={{ background: '#e2e2e2', borderRadius: '9999px', height: '10px', overflow: 'hidden' }}>
+                    <div style={{ width: `${(out.score ?? 0) * 100}%`, height: '100%', borderRadius: '9999px', background: out.label === 'POSITIVE' ? '#4caf50' : out.label === 'NEGATIVE' ? '#ba1a1a' : '#737687', transition: 'width 1s ease' }}></div>
                   </div>
                 </div>
-                {/* Input preview */}
-                <div style={{ background: '#f9f9f9', borderRadius: '0.875rem', padding: '1rem', border: '1px solid #e8e8e8' }}>
+              </div>
+              {/* Input preview */}
+              <div style={{ background: '#f9f9f9', borderRadius: '0.875rem', padding: '1rem', border: '1px solid #e8e8e8' }}>
                   <p style={{ ...LABEL, marginBottom: '0.4rem' }}>Analyzed Text</p>
                   <p style={{ fontSize: '0.9rem', color: '#424656', fontStyle: 'italic', lineHeight: 1.55 }}>"{out.inputText}"</p>
                 </div>
@@ -392,7 +393,7 @@ export default function ExplorePage() {
                 <div>
                   <p style={{ ...LABEL, marginBottom: '0.5rem' }}>Detected Emotions</p>
                   <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                    {out.emotions.map((tag: string) => (
+                    {out.emotions?.map((tag: string) => (
                       <span key={tag} style={{ background: out.label === 'POSITIVE' ? 'rgba(76,175,80,0.1)' : out.label === 'NEGATIVE' ? 'rgba(186,26,26,0.1)' : '#f3f3f3', color: out.label === 'POSITIVE' ? '#2e7d32' : out.label === 'NEGATIVE' ? '#ba1a1a' : '#424656', fontSize: '0.8rem', fontWeight: 600, padding: '0.35rem 0.875rem', borderRadius: '9999px', textTransform: 'capitalize' }}>{tag}</span>
                     ))}
                   </div>
