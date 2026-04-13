@@ -8,10 +8,10 @@ const AI_BASE = 'http://localhost:8000';
 const ESCROW_ADDRESS = 'PAYPRAPI7ESCROWV2XKAGALGO4482TESTNET9901';
 
 const SERVICES = [
-  { id: 'translate',  icon: 'translate',  name: 'Language Translation', category: 'Language', price: 0.001,  endpoint: '/api/translate',       desc: 'Instant neural translation across 140+ languages.' },
-  { id: 'summarize',  icon: 'summarize',  name: 'Text Summarization',    category: 'NLP',      price: 0.002,  endpoint: '/api/summarize',       desc: 'Extract core insights from long-form documents instantly.' },
-  { id: 'sentiment',  icon: 'psychology', name: 'Sentiment Analysis',    category: 'Analytics',price: 0.001,  endpoint: '/api/sentiment',       desc: 'Analyze emotional tone with confidence scores.' },
-  { id: 'image_gen',  icon: 'image',      name: 'Image Generation',      category: 'Creative', price: 0.005,  endpoint: '/api/image/generate',  desc: 'Generate AI images via Pollinations AI (no key required).' },
+  { id: 'translate', icon: 'translate', name: 'Language Translation', category: 'Language', price: 0.001, endpoint: '/api/translate', desc: 'Instant neural translation across 140+ languages.' },
+  { id: 'summarize', icon: 'summarize', name: 'Text Summarization', category: 'NLP', price: 0.002, endpoint: '/api/summarize', desc: 'Extract core insights from long-form documents instantly.' },
+  { id: 'sentiment', icon: 'psychology', name: 'Sentiment Analysis', category: 'Analytics', price: 0.001, endpoint: '/api/sentiment', desc: 'Analyze emotional tone with confidence scores.' },
+  { id: 'image_gen', icon: 'image', name: 'Image Generation', category: 'Creative', price: 0.005, endpoint: '/api/image/generate', desc: 'Generate AI images via Pollinations AI (no key required).' },
 ];
 
 const LANGUAGES = [
@@ -20,8 +20,8 @@ const LANGUAGES = [
   { code: 'pt', name: 'Portuguese' }, { code: 'ru', name: 'Russian' },
   { code: 'zh', name: 'Chinese' }, { code: 'ja', name: 'Japanese' },
   { code: 'ko', name: 'Korean' }, { code: 'ar', name: 'Arabic' },
-  { code: 'hi', name: 'Hindi' },  { code: 'tr', name: 'Turkish' },
-  { code: 'nl', name: 'Dutch' },  { code: 'pl', name: 'Polish' },
+  { code: 'hi', name: 'Hindi' }, { code: 'tr', name: 'Turkish' },
+  { code: 'nl', name: 'Dutch' }, { code: 'pl', name: 'Polish' },
 ];
 const LANG_MAP: Record<string, string> = {
   es: 'Spanish', fr: 'French', de: 'German', it: 'Italian', pt: 'Portuguese',
@@ -29,30 +29,30 @@ const LANG_MAP: Record<string, string> = {
   hi: 'Hindi', tr: 'Turkish', nl: 'Dutch', pl: 'Polish',
 };
 const IMAGE_STYLES = [
-  { id: 'realistic',   label: '📷 Realistic',    emoji: '📷', desc: 'Photorealistic, DSLR quality' },
-  { id: 'cinematic',   label: '🎬 Cinematic',    emoji: '🎬', desc: 'Movie scene, dramatic lighting' },
-  { id: 'anime',       label: '✨ Anime',         emoji: '✨', desc: 'Studio Ghibli style illustration' },
-  { id: 'digital-art', label: '🖥️ Digital Art',  emoji: '🖥️', desc: 'Concept art, ArtStation trending' },
-  { id: 'oil-painting',label: '🖼️ Oil Painting',  emoji: '🖼️', desc: 'Classical museum-quality art' },
-  { id: 'watercolor',  label: '💧 Watercolor',   emoji: '💧', desc: 'Soft, flowing watercolor washes' },
-  { id: 'fantasy',     label: '🧙 Fantasy',      emoji: '🧙', desc: 'Epic magical worlds & creatures' },
-  { id: '3d-render',   label: '💎 3D Render',    emoji: '💎', desc: 'Ray-traced Octane/Cinema 4D art' },
-  { id: 'pixel-art',   label: '👾 Pixel Art',    emoji: '👾', desc: 'Retro 16-bit game sprite style' },
-  { id: 'sketch',      label: '✏️ Sketch',        emoji: '✏️', desc: 'Fine pencil & graphite drawing' },
+  { id: 'realistic', label: '📷 Realistic', emoji: '📷', desc: 'Photorealistic, DSLR quality' },
+  { id: 'cinematic', label: '🎬 Cinematic', emoji: '🎬', desc: 'Movie scene, dramatic lighting' },
+  { id: 'anime', label: '✨ Anime', emoji: '✨', desc: 'Studio Ghibli style illustration' },
+  { id: 'digital-art', label: '🖥️ Digital Art', emoji: '🖥️', desc: 'Concept art, ArtStation trending' },
+  { id: 'oil-painting', label: '🖼️ Oil Painting', emoji: '🖼️', desc: 'Classical museum-quality art' },
+  { id: 'watercolor', label: '💧 Watercolor', emoji: '💧', desc: 'Soft, flowing watercolor washes' },
+  { id: 'fantasy', label: '🧙 Fantasy', emoji: '🧙', desc: 'Epic magical worlds & creatures' },
+  { id: '3d-render', label: '💎 3D Render', emoji: '💎', desc: 'Ray-traced Octane/Cinema 4D art' },
+  { id: 'pixel-art', label: '👾 Pixel Art', emoji: '👾', desc: 'Retro 16-bit game sprite style' },
+  { id: 'sketch', label: '✏️ Sketch', emoji: '✏️', desc: 'Fine pencil & graphite drawing' },
 ];
 
 /* Style config matching the backend exactly */
 const STYLE_CONFIG: Record<string, { model: string; prefix: string; suffix: string }> = {
-  'realistic':   { model: 'flux', prefix: 'RAW photo, ultra-realistic, 8K UHD, DSLR quality, sharp focus, highly detailed, natural lighting,', suffix: ', photorealistic, professional photography, Sony A7R IV, f/1.8 aperture, golden hour' },
-  'cinematic':   { model: 'flux', prefix: 'cinematic photography, epic movie scene, dramatic lighting, film grain,',                             suffix: ', anamorphic lens, Hollywood blockbuster look, depth of field, highly detailed, IMAX quality' },
-  'anime':       { model: 'flux', prefix: 'masterpiece anime illustration, Studio Ghibli style, vibrant colors, expressive characters,',            suffix: ', best quality, ultra-detailed, professional anime art, sharp lines, beautiful shading' },
-  'digital-art': { model: 'flux', prefix: 'stunning digital artwork, concept art, trending on ArtStation, highly detailed,',                       suffix: ', vibrant colors, cinematic composition, artgerm style, professional illustration' },
-  'oil-painting':{ model: 'flux', prefix: 'masterpiece oil painting, classical art style, museum quality, textured brushstrokes,',                  suffix: ', old master technique, Rembrandt lighting, rich colors, detailed canvas texture' },
-  'watercolor':  { model: 'flux', prefix: 'beautiful watercolor painting, soft flowing colors, artistic,',                                          suffix: ', delicate brushstrokes, ethereal atmosphere, transparent washes, professional watercolor art' },
-  'fantasy':     { model: 'flux', prefix: 'epic fantasy digital art, magical atmosphere, luminous colors, highly detailed,',                        suffix: ', fantasy world, dramatic lighting, intricate details, artgerm and greg rutkowski style' },
-  '3d-render':   { model: 'flux', prefix: 'stunning 3D render, octane render, ray tracing, subsurface scattering,',                                suffix: ', ultra-detailed 3D model, physically based rendering, professional 3D art, cinema 4D' },
-  'pixel-art':   { model: 'flux', prefix: 'retro pixel art, 16-bit style, game sprite, vibrant colors,',                                           suffix: ', clean pixels, nostalgic video game aesthetic, sharp pixel edges, isometric' },
-  'sketch':      { model: 'flux', prefix: 'detailed pencil sketch, fine art drawing, expressive linework,',                                         suffix: ', graphite on paper, professional illustration, cross-hatching, classical drawing technique' },
+  'realistic': { model: 'flux', prefix: 'RAW photo, ultra-realistic, 8K UHD, DSLR quality, sharp focus, highly detailed, natural lighting,', suffix: ', photorealistic, professional photography, Sony A7R IV, f/1.8 aperture, golden hour' },
+  'cinematic': { model: 'flux', prefix: 'cinematic photography, epic movie scene, dramatic lighting, film grain,', suffix: ', anamorphic lens, Hollywood blockbuster look, depth of field, highly detailed, IMAX quality' },
+  'anime': { model: 'flux', prefix: 'masterpiece anime illustration, Studio Ghibli style, vibrant colors, expressive characters,', suffix: ', best quality, ultra-detailed, professional anime art, sharp lines, beautiful shading' },
+  'digital-art': { model: 'flux', prefix: 'stunning digital artwork, concept art, trending on ArtStation, highly detailed,', suffix: ', vibrant colors, cinematic composition, artgerm style, professional illustration' },
+  'oil-painting': { model: 'flux', prefix: 'masterpiece oil painting, classical art style, museum quality, textured brushstrokes,', suffix: ', old master technique, Rembrandt lighting, rich colors, detailed canvas texture' },
+  'watercolor': { model: 'flux', prefix: 'beautiful watercolor painting, soft flowing colors, artistic,', suffix: ', delicate brushstrokes, ethereal atmosphere, transparent washes, professional watercolor art' },
+  'fantasy': { model: 'flux', prefix: 'epic fantasy digital art, magical atmosphere, luminous colors, highly detailed,', suffix: ', fantasy world, dramatic lighting, intricate details, artgerm and greg rutkowski style' },
+  '3d-render': { model: 'flux', prefix: 'stunning 3D render, octane render, ray tracing, subsurface scattering,', suffix: ', ultra-detailed 3D model, physically based rendering, professional 3D art, cinema 4D' },
+  'pixel-art': { model: 'flux', prefix: 'retro pixel art, 16-bit style, game sprite, vibrant colors,', suffix: ', clean pixels, nostalgic video game aesthetic, sharp pixel edges, isometric' },
+  'sketch': { model: 'flux', prefix: 'detailed pencil sketch, fine art drawing, expressive linework,', suffix: ', graphite on paper, professional illustration, cross-hatching, classical drawing technique' },
 };
 
 /* Generate a random Algorand-style TX ID */
@@ -81,17 +81,17 @@ const ACTIVE_NAV: React.CSSProperties = { ...NAV, color: '#004cca', borderBottom
 export default function ExplorePage() {
   const { walletAddress, mnemonic, balance, deductBalance, disconnectWallet } = useWallet();
   const [selected, setSelected] = useState(SERVICES[0]);
-  const [prompt, setPrompt]     = useState('');
+  const [prompt, setPrompt] = useState('');
   const [targetLang, setTargetLang] = useState('es');
   const [imageStyle, setImageStyle] = useState('realistic');
 
   const [payStep, setPayStep] = useState<PayStep>('input');
-  const [txId, setTxId]           = useState('');
+  const [txId, setTxId] = useState('');
   const [txAutoReady, setTxAutoReady] = useState(false);
   const [verifying, setVerifying] = useState(false);
-  const [result, setResult]       = useState<ServiceResult | null>(null);
-  const [error, setError]         = useState('');
-  const [copied, setCopied]       = useState(false);
+  const [result, setResult] = useState<ServiceResult | null>(null);
+  const [error, setError] = useState('');
+  const [copied, setCopied] = useState(false);
 
   /* Wallet balance display — shown in the terminal panel */
   const [displayBalance, setDisplayBalance] = useState(balance);
@@ -118,7 +118,7 @@ export default function ExplorePage() {
     setError('');
     setPayStep('paying');
     setTxAutoReady(false);
-    
+
     try {
       const res = await fetch('http://localhost:8000/payment/send', {
         method: 'POST',
@@ -131,7 +131,7 @@ export default function ExplorePage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Payment failed');
-      
+
       setTxId(data.tx_id);
       setTxAutoReady(true);
       // Deduct locally for UI reflect after successful transaction broadcast
@@ -146,7 +146,7 @@ export default function ExplorePage() {
   const verifyAndRun = async () => {
     if (!txId.trim()) { setError('Waiting for Transaction ID...'); return; }
     setVerifying(true); setError('');
-    
+
     let rawResponse: any = {};
 
     try {
@@ -207,14 +207,14 @@ export default function ExplorePage() {
       const translated = raw.translated_text
         || `[${LANG_MAP[targetLang] || targetLang} — ${prompt}]`;
       const confidence = raw.confidence ?? 0.964;
-      const latency    = raw.latency_ms ?? Math.floor(110 + Math.random() * 130);
+      const latency = raw.latency_ms ?? Math.floor(110 + Math.random() * 130);
       return {
         type: 'translate',
-        sourceText:   raw.original_text || prompt,
+        sourceText: raw.original_text || prompt,
         translated,
-        sourceLang:   'English',
-        targetLang:   LANG_MAP[targetLang] || targetLang,
-        confidence:   confidence,
+        sourceLang: 'English',
+        targetLang: LANG_MAP[targetLang] || targetLang,
+        confidence: confidence,
         latency,
         txId,
       };
@@ -224,13 +224,13 @@ export default function ExplorePage() {
       /* Backend returns: sentiment (lowercase), confidence, polarity, emotions */
       const rawLabel = raw.sentiment || raw.sentiment_label || (() => {
         const words = prompt.toLowerCase().split(/\s+/);
-        const pos = ['good','great','love','amazing','excellent','wonderful','happy','fantastic','awesome','brilliant'].filter(w => words.includes(w)).length;
-        const neg = ['bad','terrible','awful','horrible','hate','worst','sad','disappointed','frustrated','angry'].filter(w => words.includes(w)).length;
+        const pos = ['good', 'great', 'love', 'amazing', 'excellent', 'wonderful', 'happy', 'fantastic', 'awesome', 'brilliant'].filter(w => words.includes(w)).length;
+        const neg = ['bad', 'terrible', 'awful', 'horrible', 'hate', 'worst', 'sad', 'disappointed', 'frustrated', 'angry'].filter(w => words.includes(w)).length;
         return pos > neg ? 'positive' : neg > pos ? 'negative' : 'neutral';
       })();
-      const label     = rawLabel.toUpperCase();
-      const score     = raw.confidence ?? (0.72 + Math.random() * 0.25);
-      const polarity  = raw.polarity ?? (label === 'POSITIVE' ? 0.62 : label === 'NEGATIVE' ? -0.62 : 0.05);
+      const label = rawLabel.toUpperCase();
+      const score = raw.confidence ?? (0.72 + Math.random() * 0.25);
+      const polarity = raw.polarity ?? (label === 'POSITIVE' ? 0.62 : label === 'NEGATIVE' ? -0.62 : 0.05);
       /* Extract top emotions from raw.emotions object or fallback */
       let emotions: string[] = [];
       if (raw.emotions && typeof raw.emotions === 'object') {
@@ -241,38 +241,38 @@ export default function ExplorePage() {
       }
       if (emotions.length === 0) {
         emotions = label === 'POSITIVE' ? ['joy', 'satisfaction', 'approval']
-                 : label === 'NEGATIVE' ? ['displeasure', 'frustration', 'concern']
-                 : ['objectivity', 'neutrality', 'analysis'];
+          : label === 'NEGATIVE' ? ['displeasure', 'frustration', 'concern']
+            : ['objectivity', 'neutrality', 'analysis'];
       }
       return {
         type: 'sentiment',
-        inputText:   (raw.text || prompt).substring(0, 200),
+        inputText: (raw.text || prompt).substring(0, 200),
         label,
-        score:       parseFloat(String(score)),
-        level:       score > 0.8 ? 'HIGH' : score > 0.6 ? 'MEDIUM' : 'LOW',
+        score: parseFloat(String(score)),
+        level: score > 0.8 ? 'HIGH' : score > 0.6 ? 'MEDIUM' : 'LOW',
         emotions,
         polarity,
-        latency:     raw.latency_ms ?? Math.floor(80 + Math.random() * 60),
+        latency: raw.latency_ms ?? Math.floor(80 + Math.random() * 60),
         txId,
       };
     }
 
     if (serviceId === 'summarize') {
       /* Backend returns: summary, original_word_count, summary_word_count, compression_ratio */
-      const summary   = raw.summary || `This content covers: "${prompt.substring(0, 80)}". Key themes have been extracted and synthesized into a compact overview for quick comprehension.`;
+      const summary = raw.summary || `This content covers: "${prompt.substring(0, 80)}". Key themes have been extracted and synthesized into a compact overview for quick comprehension.`;
       const origWords = raw.original_word_count ?? prompt.split(/\s+/).length;
-      const sumWords  = raw.summary_word_count  ?? summary.split(/\s+/).length;
+      const sumWords = raw.summary_word_count ?? summary.split(/\s+/).length;
       const compression = raw.compression_ratio != null
         ? `${Math.round(Number(raw.compression_ratio) * 100)}%`
-        : `${Math.max(10, Math.round((1 - sumWords / Math.max(origWords,1)) * 100))}%`;
+        : `${Math.max(10, Math.round((1 - sumWords / Math.max(origWords, 1)) * 100))}%`;
       return {
         type: 'summarize',
         summary,
         originalWords: origWords,
-        summaryWords:  sumWords,
+        summaryWords: sumWords,
         compression,
-        style:         raw.style || 'concise',
-        latency:       raw.latency_ms ?? Math.floor(200 + Math.random() * 150),
+        style: raw.style || 'concise',
+        latency: raw.latency_ms ?? Math.floor(200 + Math.random() * 150),
         txId,
       };
     }
@@ -283,12 +283,12 @@ export default function ExplorePage() {
       return {
         type: 'image_gen',
         prompt,
-        style:       raw.style || imageStyle,
+        style: raw.style || imageStyle,
         imageUrl,
-        resolution:  raw.width ? `${raw.width}×${raw.height}` : '1024×1024',
-        model:       'Pollinations AI / Flux',
-        seed:        raw.seed ?? seed,
-        latency:     raw.latency_ms ?? Math.floor(2500 + Math.random() * 2000),
+        resolution: raw.width ? `${raw.width}×${raw.height}` : '1024×1024',
+        model: 'Pollinations AI / Flux',
+        seed: raw.seed ?? seed,
+        latency: raw.latency_ms ?? Math.floor(2500 + Math.random() * 2000),
         txId,
       };
     }
@@ -377,7 +377,7 @@ export default function ExplorePage() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#737687' }}>Confidence Score</span>
-                    <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.875rem', color: '#1a1c1c' }}>{(out.score * 100).toFixed(1)}%</span>
+                    <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.875rem', color: '#1a1c1c' }}>{((out.score ?? 0) * 100).toFixed(1)}%</span>
                   </div>
                   <div style={{ background: '#e2e2e2', borderRadius: '9999px', height: '10px', overflow: 'hidden' }}>
                     <div style={{ width: `${out.score * 100}%`, height: '100%', borderRadius: '9999px', background: out.label === 'POSITIVE' ? '#4caf50' : out.label === 'NEGATIVE' ? '#ba1a1a' : '#737687', transition: 'width 1s ease' }}></div>
@@ -461,7 +461,7 @@ export default function ExplorePage() {
                 {/* Loading shimmer background text */}
                 <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '0.75rem', zIndex: 0 }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '48px', color: 'rgba(255,255,255,0.15)' }}>image</span>
-                  <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center', maxWidth: '240px', lineHeight: 1.5 }}>Rendering AI image via Pollinations...<br/>This may take a few seconds</p>
+                  <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: '0.8rem', color: 'rgba(255,255,255,0.3)', textAlign: 'center', maxWidth: '240px', lineHeight: 1.5 }}>Rendering AI image via Pollinations...<br />This may take a few seconds</p>
                 </div>
 
                 {/* Actual AI Image */}
@@ -538,7 +538,7 @@ export default function ExplorePage() {
       <label style={LABEL}>Escrow Address</label>
       <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
         <div style={{ flex: 1, background: '#f3f3f3', borderRadius: '0.75rem', padding: '0.75rem', fontFamily: 'monospace', fontSize: '0.68rem', color: '#424656', wordBreak: 'break-all', lineHeight: 1.5 }}>{ESCROW_ADDRESS}</div>
-        <button onClick={() => { navigator.clipboard.writeText(ESCROW_ADDRESS).catch(() => {}); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
+        <button onClick={() => { navigator.clipboard.writeText(ESCROW_ADDRESS).catch(() => { }); setCopied(true); setTimeout(() => setCopied(false), 2000); }}
           style={{ flexShrink: 0, width: 44, height: 44, background: copied ? '#004cca' : '#f3f3f3', border: 'none', borderRadius: '0.75rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s', alignSelf: 'center' }}>
           <span className="material-symbols-outlined" style={{ fontSize: '18px', color: copied ? '#fff' : '#424656' }}>{copied ? 'check' : 'content_copy'}</span>
         </button>
@@ -665,7 +665,7 @@ export default function ExplorePage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '3rem' }}>
           <Link href="/" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.25rem', letterSpacing: '-0.03em', color: '#1a1c1c', textDecoration: 'none' }}>PayprAPI</Link>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/explore"  style={ACTIVE_NAV}>Explore APIs</Link>
+            <Link href="/explore" style={ACTIVE_NAV}>Explore APIs</Link>
             <Link href="/dashboard" style={NAV}>Dashboard</Link>
             <Link href="/analytics" style={NAV}>Analytics</Link>
             <Link href="/agent-console" style={NAV}>Agent Console</Link>
@@ -861,10 +861,10 @@ export default function ExplorePage() {
               <pre style={{ margin: 0 }}>{selected.id === 'translate'
                 ? `POST ${AI_BASE}/api/translate\nHeaders: X-Payment: txid:<TX_ID>\n\n// Request\n{ "text": "Hello world", "target_lang": "es", "source_lang": "en" }\n\n// Response\n{ "translated_text": "Hola mundo", "confidence": 0.96, "source_lang": "en", "target_lang": "es" }`
                 : selected.id === 'sentiment'
-                ? `POST ${AI_BASE}/api/sentiment\nHeaders: X-Payment: txid:<TX_ID>\n\n// Request\n{ "text": "This is amazing!", "granular": true }\n\n// Response\n{ "sentiment": "positive", "confidence": 0.94, "polarity": 0.62,\n  "emotions": { "joy": 0.72, "satisfaction": 0.15, "surprise": 0.08 } }`
-                : selected.id === 'summarize'
-                ? `POST ${AI_BASE}/api/summarize\nHeaders: X-Payment: txid:<TX_ID>\n\n// Request\n{ "text": "<long text>", "max_sentences": 3, "style": "concise" }\n\n// Response\n{ "summary": "...", "original_word_count": 842, "compression_ratio": 0.89 }`
-                : `POST ${AI_BASE}/api/image/generate\nHeaders: X-Payment: txid:<TX_ID>\n\n// Request\n{ "prompt": "A futuristic city", "style": "cinematic", "width": 1024, "height": 1024 }\n\n// Response — Pollinations AI\n{ "image_url": "https://image.pollinations.ai/prompt/...", "seed": 482917, "width": 1024 }`
+                  ? `POST ${AI_BASE}/api/sentiment\nHeaders: X-Payment: txid:<TX_ID>\n\n// Request\n{ "text": "This is amazing!", "granular": true }\n\n// Response\n{ "sentiment": "positive", "confidence": 0.94, "polarity": 0.62,\n  "emotions": { "joy": 0.72, "satisfaction": 0.15, "surprise": 0.08 } }`
+                  : selected.id === 'summarize'
+                    ? `POST ${AI_BASE}/api/summarize\nHeaders: X-Payment: txid:<TX_ID>\n\n// Request\n{ "text": "<long text>", "max_sentences": 3, "style": "concise" }\n\n// Response\n{ "summary": "...", "original_word_count": 842, "compression_ratio": 0.89 }`
+                    : `POST ${AI_BASE}/api/image/generate\nHeaders: X-Payment: txid:<TX_ID>\n\n// Request\n{ "prompt": "A futuristic city", "style": "cinematic", "width": 1024, "height": 1024 }\n\n// Response — Pollinations AI\n{ "image_url": "https://image.pollinations.ai/prompt/...", "seed": 482917, "width": 1024 }`
               }</pre>
             </div>
           </div>
