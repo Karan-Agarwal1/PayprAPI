@@ -377,7 +377,7 @@ export default function ExplorePage() {
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
                     <span style={{ fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: '#737687' }}>Confidence Score</span>
-                    <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.875rem', color: '#1a1c1c' }}>{out.score ? (out.score * 100).toFixed(1) : '0.0'}%</span>
+                    <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '0.875rem', color: '#1a1c1c' }}>{(out.score! * 100).toFixed(1)}%</span>
                   </div>
                   <div style={{ background: '#e2e2e2', borderRadius: '9999px', height: '10px', overflow: 'hidden' }}>
                     <div style={{ width: `${out.score * 100}%`, height: '100%', borderRadius: '9999px', background: out.label === 'POSITIVE' ? '#4caf50' : out.label === 'NEGATIVE' ? '#ba1a1a' : '#737687', transition: 'width 1s ease' }}></div>
