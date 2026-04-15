@@ -33,6 +33,7 @@ function getClientAccount() {
 // GET /payment/wallet — return client wallet address + balance
 router.get('/wallet', async (req, res) => {
   const isSimulation = process.env.SIMULATION_MODE !== 'false';
+  console.log(`[Payment] Fetching wallet info (SIMULATION=${isSimulation})`);
   try {
     const account = getClientAccount();
     const address = account.addr.toString();

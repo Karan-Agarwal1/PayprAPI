@@ -79,7 +79,7 @@ const NAV: React.CSSProperties = { fontFamily: 'Space Grotesk, sans-serif', font
 const ACTIVE_NAV: React.CSSProperties = { ...NAV, color: '#004cca', borderBottom: '2px solid #004cca' };
 
 export default function ExplorePage() {
-  const { walletAddress, mnemonic, balance, isSimulation, deductBalance, disconnectWallet } = useWallet();
+  const { walletAddress, mnemonic, balance, isSimulation, isLoadingBalance, deductBalance, disconnectWallet, refreshBalance } = useWallet();
   const [selected, setSelected] = useState(SERVICES[0]);
   const [prompt, setPrompt] = useState('');
   const [targetLang, setTargetLang] = useState('es');
@@ -140,7 +140,11 @@ export default function ExplorePage() {
       // Deduct locally for UI reflect after successful transaction broadcast
       deductBalance(selected.price);
     } catch (err: any) {
-      setError('Payment failed: ' + err.message);
+      if (err.message.includes('Insufficient balance')) {
+        setError(`Insufficient balance. Fund your address: ${walletAddress.substring(0, 10)}... below.`);
+      } else {
+        setError('Payment failed: ' + err.message);
+      }
       setPayStep('input');
     }
   };
@@ -814,10 +818,47 @@ export default function ExplorePage() {
                     </div>
 
                     {/* Balance display */}
-                    <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '0.75rem', padding: '1rem', marginBottom: '1rem' }}>
-                      <p style={{ fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#737687', marginBottom: '0.25rem' }}>Wallet Balance</p>
-                      <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.625rem', color: '#fff' }}>{displayBalance.toFixed(4)} <span style={{ fontSize: '0.875rem', color: '#737687', fontWeight: 400 }}>ALGO</span></p>
-                      <p style={{ fontSize: '0.65rem', color: '#737687', marginTop: '0.25rem' }}>Cost: -{selected.price} ALGO after payment</p>
+                    <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '1rem', border: '1px solid rgba(255,255,255,0.1)' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                        <div>
+                          <p style={{ fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#737687', marginBottom: '0.25rem' }}>Wallet Balance</p>
+                          <p style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: '1.625rem', color: '#fff', lineHeight: 1 }}>
+                            {displayBalance.toFixed(4)} <span style={{ fontSize: '0.875rem', color: '#737687', fontWeight: 400 }}>ALGO</span>
+                          </p>
+                        </div>
+                        <button 
+                          onClick={() => refreshBalance()}
+                          style={{ background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: '0.5rem', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }}
+                        >
+                          <span className={`material-symbols-outlined ${isLoadingBalance ? 'animate-paypr-spin' : ''}`} style={{ fontSize: '18px' }}>sync</span>
+                        </button>
+                      </div>
+                      
+                      <div style={{ marginBottom: '1rem', padding: '0.625rem', background: 'rgba(0,0,0,0.2)', borderRadius: '0.5rem' }}>
+                         <p style={{ fontSize: '0.55rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#737687', marginBottom: '0.25rem' }}>Your Wallet Address</p>
+                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                           <code style={{ fontSize: '0.65rem', color: '#81c784', wordBreak: 'break-all', fontFamily: 'monospace' }}>{walletAddress || 'Detecting...'}</code>
+                           <button onClick={() => { navigator.clipboard.writeText(walletAddress); setCopied(true); setTimeout(() => setCopied(false), 2000); }} style={{ background: 'none', border: 'none', color: '#737687', cursor: 'pointer', padding: 0 }}>
+                             <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>{copied ? 'done' : 'content_copy'}</span>
+                           </button>
+                         </div>
+                      </div>
+
+                      {!isSimulation && balance < 0.1 && (
+                        <a 
+                          href="https://bank.testnet.algorand.network/" 
+                          target="_blank" 
+                          rel="noreferrer"
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', width: '100%', padding: '0.625rem', background: '#004cca', color: '#fff', borderRadius: '0.5rem', textDecoration: 'none', fontSize: '0.75rem', fontWeight: 700, fontFamily: 'Space Grotesk, sans-serif' }}
+                        >
+                          <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>faucet</span>
+                          Fund Wallet (Testnet Faucet)
+                        </a>
+                      )}
+                      
+                      <p style={{ fontSize: '0.6rem', color: '#737687', marginTop: '0.75rem', textAlign: 'center' }}>
+                        {isSimulation ? '🟢 Simulation Mode active' : '🔵 Real Testnet mode active'}
+                      </p>
                     </div>
 
                     {/* Flow steps */}

@@ -7,6 +7,7 @@ interface WalletContextType {
   mnemonic: string;
   balance: number;
   isSimulation: boolean;
+  isLoadingBalance: boolean;
   network: string;
   deductBalance: (amount: number) => void;
   disconnectWallet: () => void;
@@ -27,6 +28,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   const [mnemonic, setMnemonic] = useState('');
   const [balance, setBalance] = useState(0);
   const [isSimulation, setIsSimulation] = useState(true);
+  const [isLoadingBalance, setIsLoadingBalance] = useState(false);
   const [network, setNetwork] = useState('simulation');
   const [inputMnemonic, setInputMnemonic] = useState('');
   const [error, setError] = useState('');
@@ -43,6 +45,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   async function refreshBalance() {
+    setIsLoadingBalance(true);
     try {
       const mn = window.localStorage.getItem('x402_mnemonic') || mnemonic;
       const res = await fetch(`${process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8000'}/payment/wallet`);
@@ -51,9 +54,16 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         setBalance(data.balance_algo || 0);
         setIsSimulation(!!data.simulation);
         setNetwork(data.network || 'testnet');
+        
+        // Sync local address if we don't have one and backend provides it
+        if (!walletAddress && data.client_address) {
+          setWalletAddress(data.client_address);
+        }
       }
     } catch (e) {
       console.warn('[Wallet] Failed to fetch balance:', e);
+    } finally {
+      setIsLoadingBalance(false);
     }
   }
 
@@ -128,7 +138,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   if (!hasChecked) return null;
 
   return (
-    <WalletContext.Provider value={{ walletAddress, mnemonic, balance, isSimulation, network, deductBalance, disconnectWallet, refreshBalance }}>
+    <WalletContext.Provider value={{ walletAddress, mnemonic, balance, isSimulation, isLoadingBalance, network, deductBalance, disconnectWallet, refreshBalance }}>
       {children}
 
       {!walletAddress && (
