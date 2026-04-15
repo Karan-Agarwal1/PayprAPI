@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useWallet } from '../components/WalletProvider';
 
-const AI_BASE = 'http://localhost:8000';
+const AI_BASE = process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8000';
 
 function pollinationsUrl(prompt: string, style: string): string {
   const styleMap: Record<string, string> = {
@@ -328,7 +328,7 @@ export default function AgentConsolePage() {
       let responseData: any = null;
 
       try {
-        const payRes = await fetch('http://localhost:8000/payment/send', {
+        const payRes = await fetch(`${AI_BASE}/payment/send`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ amount: svc.price, endpoint: svc.endpoint, mnemonic: mnemonic || undefined })

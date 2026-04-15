@@ -36,7 +36,7 @@ export default function AnalyticsPage() {
   const [stats, setStats] = useState({ total_apis: 4, total_providers: 3, total_requests: 0, total_earnings: 0 });
 
   useEffect(() => {
-    fetch('http://localhost:8000/registry/stats/overview')
+    fetch(`${process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8000'}/registry/stats/overview`)
       .then(r => r.json())
       .then(d => setStats(d))
       .catch(() => {});

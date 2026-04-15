@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useWallet } from '../components/WalletProvider';
 
 /* ─────────────────────────── Constants ─────────────────────────── */
-const AI_BASE = 'http://localhost:8000';
+const AI_BASE = process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8000';
 const ESCROW_ADDRESS = 'PAYPRAPI7ESCROWV2XKAGALGO4482TESTNET9901';
 
 const SERVICES = [
@@ -120,7 +120,7 @@ export default function ExplorePage() {
     setTxAutoReady(false);
 
     try {
-      const res = await fetch('http://localhost:8000/payment/send', {
+      const res = await fetch(`${AI_BASE}/payment/send`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
