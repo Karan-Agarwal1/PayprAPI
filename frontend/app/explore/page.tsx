@@ -5,7 +5,7 @@ import { useWallet } from '../components/WalletProvider';
 
 /* ─────────────────────────── Constants ─────────────────────────── */
 const AI_BASE = process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8000';
-const ESCROW_ADDRESS = 'PAYPRAPI7ESCROWV2XKAGALGO4482TESTNET99017777777777777777777';
+const ESCROW_ADDRESS = '3GET3TZOGXE2O3KQWKCMRSLJTRZUWTIKMTSN55XOPWNI3U3IGCU6RXLBRE';
 
 const SERVICES = [
   { id: 'translate', icon: 'translate', name: 'Language Translation', category: 'Language', price: 0.001, endpoint: '/api/translate', desc: 'Instant neural translation across 140+ languages.' },
