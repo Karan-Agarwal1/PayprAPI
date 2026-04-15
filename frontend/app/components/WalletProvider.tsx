@@ -6,8 +6,11 @@ interface WalletContextType {
   walletAddress: string;
   mnemonic: string;
   balance: number;
+  isSimulation: boolean;
+  network: string;
   deductBalance: (amount: number) => void;
   disconnectWallet: () => void;
+  refreshBalance: () => Promise<void>;
 }
 
 const WalletContext = createContext<WalletContextType | null>(null);
@@ -22,7 +25,9 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   const [hasChecked, setHasChecked] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
   const [mnemonic, setMnemonic] = useState('');
-  const [balance, setBalance] = useState(4281.40);
+  const [balance, setBalance] = useState(0);
+  const [isSimulation, setIsSimulation] = useState(true);
+  const [network, setNetwork] = useState('simulation');
   const [inputMnemonic, setInputMnemonic] = useState('');
   const [error, setError] = useState('');
   const [connecting, setConnecting] = useState(false);
@@ -31,12 +36,26 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     try {
       const addr = window.localStorage.getItem('x402_wallet_address');
       const mn = window.localStorage.getItem('x402_mnemonic');
-      const bal = window.localStorage.getItem('x402_balance');
       if (addr && mn) { setWalletAddress(addr); setMnemonic(mn); }
-      if (bal) setBalance(parseFloat(bal));
     } catch {}
     setHasChecked(true);
+    refreshBalance();
   }, []);
+
+  async function refreshBalance() {
+    try {
+      const mn = window.localStorage.getItem('x402_mnemonic') || mnemonic;
+      const res = await fetch(`${process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8000'}/payment/wallet`);
+      if (res.ok) {
+        const data = await res.json();
+        setBalance(data.balance_algo || 0);
+        setIsSimulation(!!data.simulation);
+        setNetwork(data.network || 'testnet');
+      }
+    } catch (e) {
+      console.warn('[Wallet] Failed to fetch balance:', e);
+    }
+  }
 
   function deductBalance(amount: number) {
     setBalance(prev => {
@@ -109,7 +128,7 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
   if (!hasChecked) return null;
 
   return (
-    <WalletContext.Provider value={{ walletAddress, mnemonic, balance, deductBalance, disconnectWallet }}>
+    <WalletContext.Provider value={{ walletAddress, mnemonic, balance, isSimulation, network, deductBalance, disconnectWallet, refreshBalance }}>
       {children}
 
       {!walletAddress && (

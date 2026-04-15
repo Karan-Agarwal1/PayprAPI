@@ -19,29 +19,42 @@ const algodClient = new algosdk.Algodv2('', ALGOD_URL, 443);
 
 // Derive client account from mnemonic
 function getClientAccount() {
-  if (!CLIENT_MNEMONIC) throw new Error('CLIENT_WALLET_MNEMONIC not set in .env');
+  const isSimulation = process.env.SIMULATION_MODE !== 'false';
+  if (!CLIENT_MNEMONIC) {
+    if (isSimulation) {
+      // In simulation mode, return a dummy account if no mnemonic is set
+      return algosdk.generateAccount();
+    }
+    throw new Error('CLIENT_WALLET_MNEMONIC not set in .env');
+  }
   return algosdk.mnemonicToSecretKey(CLIENT_MNEMONIC);
 }
 
 // GET /payment/wallet — return client wallet address + balance
 router.get('/wallet', async (req, res) => {
+  const isSimulation = process.env.SIMULATION_MODE !== 'false';
   try {
     const account = getClientAccount();
     const address = account.addr.toString();
 
     let balance = 0;
-    try {
-      const info = await algodClient.accountInformation(address).do();
-      balance = Number(info.amount) / 1_000_000;
-    } catch (e) {
-      console.warn('[Payment] Balance fetch failed:', e.message);
+    if (isSimulation) {
+      balance = 1000.0; // Mock high balance for simulation
+    } else {
+      try {
+        const info = await algodClient.accountInformation(address).do();
+        balance = Number(info.amount) / 1_000_000;
+      } catch (e) {
+        console.warn('[Payment] Balance fetch failed:', e.message);
+      }
     }
 
     res.json({
       client_address: address,
       provider_address: PROVIDER_WALLET,
       balance_algo: balance,
-      network: process.env.ALGORAND_NETWORK || 'testnet',
+      network: isSimulation ? 'simulation' : (process.env.ALGORAND_NETWORK || 'testnet'),
+      simulation: isSimulation,
       faucet_url: 'https://bank.testnet.algorand.network/',
     });
   } catch (err) {

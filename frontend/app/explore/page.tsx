@@ -79,7 +79,7 @@ const NAV: React.CSSProperties = { fontFamily: 'Space Grotesk, sans-serif', font
 const ACTIVE_NAV: React.CSSProperties = { ...NAV, color: '#004cca', borderBottom: '2px solid #004cca' };
 
 export default function ExplorePage() {
-  const { walletAddress, mnemonic, balance, deductBalance, disconnectWallet } = useWallet();
+  const { walletAddress, mnemonic, balance, isSimulation, deductBalance, disconnectWallet } = useWallet();
   const [selected, setSelected] = useState(SERVICES[0]);
   const [prompt, setPrompt] = useState('');
   const [targetLang, setTargetLang] = useState('es');
@@ -114,7 +114,10 @@ export default function ExplorePage() {
   /* ── Step 1: initiate payment ── */
   const initiatePayment = async () => {
     if (!prompt.trim()) { setError('Please enter an input first.'); return; }
-    if (balance < selected.price) { setError(`Insufficient balance. Need ${selected.price} ALGO, you have ${balance.toFixed(4)} ALGO.`); return; }
+    if (!isSimulation && balance < selected.price) { 
+      setError(`Insufficient balance. Need ${selected.price} ALGO, you have ${balance.toFixed(4)} ALGO.`); 
+      return; 
+    }
     setError('');
     setPayStep('paying');
     setTxAutoReady(false);
