@@ -844,7 +844,7 @@ export default function ExplorePage() {
                          </div>
                       </div>
 
-                      {!isSimulation && balance < 0.1 && (
+                      {displayBalance < 0.1 && (
                         <a 
                           href="https://bank.testnet.algorand.network/" 
                           target="_blank" 
