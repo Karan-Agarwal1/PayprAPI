@@ -75,7 +75,24 @@ router.post('/send', async (req, res) => {
   const microAlgo = Math.round(parseFloat(amount) * 1_000_000);
   const noteText  = memo || `x402:${endpoint}`;
 
-  console.log(`[Payment] Sending ${amount} ALGO from ${senderAddr.slice(0,12)}... to ${PROVIDER_WALLET.slice(0,12)}...`);
+  console.log(`[Payment] Process request: ${amount} ALGO from ${senderAddr.slice(0,12)}... to ${PROVIDER_WALLET.slice(0,12)}...`);
+  
+  // ── SIMULATION MODE ──────────────────────────────────────────────────────────
+  const isSimulation = process.env.SIMULATION_MODE !== 'false';
+  
+  if (isSimulation) {
+    const mockTxId = `sim_${Math.random().toString(36).substring(2, 12)}_${Date.now()}`;
+    console.log(`[Payment] SIMULATION MODE active: Returning mock TX ID: ${mockTxId}`);
+    return res.json({
+      tx_id: mockTxId,
+      confirmed: true,
+      amount: parseFloat(amount),
+      sender: senderAddr,
+      receiver: PROVIDER_WALLET,
+      simulation: true,
+      network: 'simulation',
+    });
+  }
 
   try {
     // 1. Get suggested params from algod
