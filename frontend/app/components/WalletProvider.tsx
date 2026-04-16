@@ -61,9 +61,10 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
         setIsSimulation(!!data.simulation);
         setNetwork(data.network || 'testnet');
         
-        // Sync local address if we don't have one and backend provides it
-        if (!walletAddress && data.client_address) {
+        // Always sync the local address with the backend's authoritative address
+        if (data.client_address && walletAddress !== data.client_address) {
           setWalletAddress(data.client_address);
+          try { localStorage.setItem('x402_wallet_address', data.client_address); } catch {}
         }
       }
     } catch (e) {

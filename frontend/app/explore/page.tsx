@@ -114,10 +114,10 @@ export default function ExplorePage() {
   /* ── Step 1: initiate payment ── */
   const initiatePayment = async () => {
     if (!prompt.trim()) { setError('Please enter an input first.'); return; }
-    if (!isSimulation && balance < selected.price) { 
-      setError(`Insufficient balance. Need ${selected.price} ALGO, you have ${balance.toFixed(4)} ALGO.`); 
-      return; 
-    }
+    
+    // Bypass strict frontend balance check to prevent transient balance fetch '0' errors
+    // from blocking valid backend requests. Backend will enforce payment natively.
+
     setError('');
     setPayStep('paying');
     setTxAutoReady(false);
@@ -141,7 +141,7 @@ export default function ExplorePage() {
       deductBalance(selected.price);
     } catch (err: any) {
       if (err.message.includes('Insufficient balance')) {
-        setError(`Insufficient balance. Fund your address: ${walletAddress.substring(0, 10)}... below.`);
+        setError(`Insufficient testnet ALGO. Fund your address: ${walletAddress.substring(0, 10)}... (Error detail: ${err.message})`);
       } else {
         setError('Payment failed: ' + err.message);
       }

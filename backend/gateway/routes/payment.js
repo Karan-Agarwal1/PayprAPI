@@ -157,14 +157,14 @@ router.post('/send', async (req, res) => {
     // Friendly errors
     if (err.message?.includes('overspend') || err.message?.includes('below min')) {
       return res.status(402).json({
-        error: 'Insufficient balance in client wallet',
+        error: 'Insufficient balance in client wallet: ' + err.message,
         detail: err.message,
         fix: 'Fund your client wallet at https://bank.testnet.algorand.network/',
         client_address: senderAddr,
       });
     }
 
-    res.status(500).json({ error: err.message, detail: 'Algorand transaction failed' });
+    res.status(500).json({ error: 'Algorand transaction failed: ' + err.message, detail: err.message });
   }
 });
 
