@@ -48,7 +48,13 @@ export function WalletProvider({ children }: { children: React.ReactNode }) {
     setIsLoadingBalance(true);
     try {
       const mn = window.localStorage.getItem('x402_mnemonic') || mnemonic;
-      const res = await fetch(`${process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8000'}/payment/wallet`);
+      const addr = window.localStorage.getItem('x402_wallet_address') || walletAddress;
+      const baseUrl = process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8000';
+      const url = new URL(`${baseUrl}/payment/wallet`);
+      if (addr) {
+        url.searchParams.append('address', addr);
+      }
+      const res = await fetch(url.toString());
       if (res.ok) {
         const data = await res.json();
         setBalance(data.balance_algo || 0);

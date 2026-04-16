@@ -35,13 +35,21 @@ router.get('/wallet', async (req, res) => {
   const isSimulation = process.env.SIMULATION_MODE !== 'false';
   console.log(`[Payment] Fetching wallet info (SIMULATION=${isSimulation})`);
   try {
-    const account = getClientAccount();
-    const address = account.addr.toString();
+    let address = req.query.address;
+    if (!address) {
+      try {
+        const account = getClientAccount();
+        address = account.addr.toString();
+      } catch (e) {
+        console.warn('[Payment] getClientAccount failed:', e.message);
+        address = '';
+      }
+    }
 
     let balance = 0;
     if (isSimulation) {
       balance = 1000.0; // Mock high balance for simulation
-    } else {
+    } else if (address) {
       try {
         const info = await algodClient.accountInformation(address).do();
         balance = Number(info.amount) / 1_000_000;
